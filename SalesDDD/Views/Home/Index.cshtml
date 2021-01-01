@@ -1,0 +1,38 @@
+﻿@model IEnumerable<ProductViewModel>
+@{
+    ViewData["Title"] = "Home Page";
+    Layout = "_Layout";
+}
+
+<div class="container">
+    <br/><br /><br /><br /><br />
+    
+    <div class="row">
+        @foreach (var item in Model)
+        {
+            <div class="col-4">
+                <div class="card">
+                    @{ 
+                        var base64 = Convert.ToBase64String(item.ProductImage);
+                        var imgSrc = string.Format("data:image/jpg;base64,{0}", base64); 
+                        <img src="@imgSrc" />
+                    }
+                    <div class="card-body">
+                        <h5 class="card-title">@item.Title</h5>
+                        <p class="card-text">
+                            @string.Format("{0:c}", item.SellPrice)
+                            <button id="@item.Id" class="btn btn-success">
+                                <i class="fa fa-plus"></i>
+                            </button>
+                            <button id="@item.Id" class="btn btn-danger">
+                                <i class="fa fa-minus"></i>
+                            </button>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+
