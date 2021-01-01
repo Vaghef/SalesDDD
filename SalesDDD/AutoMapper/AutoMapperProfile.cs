@@ -10,7 +10,7 @@ namespace SalesDDD.AutoMapper
 {
     public class AutoMapperProfile : Profile
     {
-        public AutoMapperProfile()
+        public AutoMapperProfile() 
         {
             CreateMap<Brand, BaseViewModel>();
             CreateMap<BaseViewModel, Brand>();
