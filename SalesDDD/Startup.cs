@@ -14,6 +14,7 @@ using SalesDDD.AutoMapper;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 
 namespace SalesDDD
@@ -35,13 +36,17 @@ namespace SalesDDD
 
             services.AddIdentity<ApplicationUser, ApplicationRole>(options =>
             {
+                options.SignIn.RequireConfirmedAccount = false;
                 options.Password.RequiredLength = 6;
                 options.Password.RequireLowercase = false;
                 options.Password.RequireUppercase = false;
                 options.Password.RequireNonAlphanumeric = false;
+
             }).AddEntityFrameworkStores<DataContext>().AddDefaultTokenProviders();
 
             services.AddControllersWithViews().AddRazorRuntimeCompilation();
+
+            services.ConfigureApplicationCookie(option => option.LoginPath = "/Account/Login");
 
             services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
             services.AddScoped<IBrandRepository, BrandRepository>();
@@ -51,6 +56,13 @@ namespace SalesDDD
             }).CreateMapper();
 
             services.AddSingleton(mapper);
+
+
+            services.AddAuthorization(options =>
+            {
+                options.AddPolicy("RequireAdministratorRole",
+                     policy => policy.RequireRole("Admin"));
+            });
 
             services.AddSession(option =>
             {
@@ -75,6 +87,16 @@ namespace SalesDDD
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
+
+            app.UseStatusCodePages(async (context) =>
+            {
+                var response = context.HttpContext.Response;
+
+                if (response.StatusCode == (int)HttpStatusCode.Unauthorized ||
+                    response.StatusCode == (int)HttpStatusCode.Forbidden)
+                    response.Redirect("/Home/Error");
+            });
+
             app.UseAuthentication();
             app.UseSession();
             app.UseHttpsRedirection();

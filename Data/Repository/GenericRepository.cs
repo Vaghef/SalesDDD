@@ -17,7 +17,7 @@ namespace Data.Repository
         string errorMessage;
         public GenericRepository(DataContext context)
         {
-            _context = context;
+            _context = context;            
             this.dbset = context.Set<TEntity>();
         }
 
@@ -76,6 +76,7 @@ namespace Data.Repository
             {
                 entity.AddedDate = DateTime.Now;
                 dbset.Add(entity);
+                
                 return await _context.SaveChangesAsync();
             }
             catch

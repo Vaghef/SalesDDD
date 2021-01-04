@@ -6,7 +6,9 @@
 
 <div class="container">
     <br/><br /><br /><br /><br />
-    
+    <div id="myDiv" role="alert">
+        <p id="notenough"></p>
+    </div>
     <div class="row">
         @foreach (var item in Model)
         {
@@ -35,4 +37,60 @@
     </div>
 </div>
 
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script>
+    $(document).ready(function () {
+        var sum = 0;
+        $("button").on("click", function () {
+            var currId = $(this).attr('id');
 
+            if ("btnLogout" == currId)
+                return;
+
+            var currClass = $(this).attr('class');
+
+            if (currClass == "btn btn-success") {
+                sum++;
+            } else {
+                if (sum <= 0) {
+                    return;
+                }
+                sum--;
+            }
+
+            $("#cardSpan").text(sum);
+
+            let tag = {
+                "Id": currId,
+                "Classname": currClass
+            };
+
+            console.log(tag);
+            $.ajax({
+                type: "POST",
+                dataType: "json",
+                data: tag,
+                url: "Home/Card",
+
+                success: function (response) {
+                    $("#myDiv").removeClass("alert alert-danger");
+                    $("#notenough").text("");
+
+                    if (response.success) {
+                        $("#myDiv").addClass("alert alert-success");
+                        $("#notenough").text(response.responseText);
+                    } else {
+                        $("#myDiv").addClass("alert alert-danger");
+                        $("#notenough").text(response.responseText);
+                    }
+                },
+
+                error: function (response) {
+                    console.log(response);
+                    $("#myDiv").addClass("alert alert-danger");
+                    $("#notenough").text(response);
+                }
+            })
+        })
+    })
+</script>

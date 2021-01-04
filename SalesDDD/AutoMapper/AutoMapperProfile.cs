@@ -23,6 +23,10 @@ namespace SalesDDD.AutoMapper
 
             CreateMap<ApplicationUser, UserViewModel>();
             CreateMap<UserViewModel, ApplicationUser>();
+
+
+            CreateMap<Order, OrderViewModel>();
+            CreateMap<OrderViewModel, Order>();
         }
     }
 }

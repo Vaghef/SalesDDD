@@ -14,8 +14,7 @@ namespace SalesDDD.Controllers
 {
     public class UserController : BaseController
     {
-        private IMapper _mapper;
-        private readonly UserManager<ApplicationUser> _userManager;
+        private IMapper _mapper;        
         private readonly RoleManager<ApplicationRole> _roleManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
         public UserController(UserManager<ApplicationUser> userManager, RoleManager<ApplicationRole> roleManager, SignInManager<ApplicationUser> signInManager, IMapper mapper)

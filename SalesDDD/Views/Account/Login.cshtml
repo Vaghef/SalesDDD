@@ -1,0 +1,84 @@
+﻿@model LoginViewModel
+@{
+
+    Layout = null;
+}
+
+
+
+<!DOCTYPE html>
+<html dir="rtl" lang="fa">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+
+    <title>صفحه ورود </title>
+
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap-rtl.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+    <link href="~/css/login.css" asp-append-version="true" rel="stylesheet" />
+
+    <script src="~/lib/jquery/dist/jquery.js"></script>
+    <script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
+
+</head>
+<body>
+    <section class="login-block">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 login-sec">
+                    <div class="text-center">
+                        <h2>صفحه ورود</h2>
+                        <hr />
+                        <a class="dropdown-item" asp-controller="Account" asp-action="Register">عضویت</a>
+                    </div>
+
+                    <form class="login-form" id="loginForm" asp-antiforgery="true" method="post">
+                        <div asp-validation-summary="ModelOnly"></div>
+
+                        <div class="form-group">
+                            <label for="Username" class="text-uppercase">نام کاربری</label>
+
+                            <input asp-for="UserName" type="text" class="form-control" placeholder="نام کاربری" />
+                            <span asp-validation-for="UserName"></span>
+
+                        </div>
+                        <div>
+                            <label for="Password" class="text-uppercase">رمز عبور</label>
+                            <input asp-for="Password" type="password" class="form-control" placeholder="رمز عبور" />
+                            <span asp-validation-for="Password"></span>
+                        </div>
+                        <br />
+                        <div class="form-check">
+                            <button type="submit" class="btn btn-login float-right">ورود به سیستم</button>
+
+                        </div>
+
+                    </form>
+
+                </div>
+                <div class="col-md-8 banner-sec">
+                    <div class="app-name">
+                        <h1>
+                            FAD
+                        </h1>
+                    </div>
+                    <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+
+                        <div class="carousel-inner" role="listbox">
+                            <div class="carousel-item active" style="background: #243a4a;">
+                                <img class="d-block img-fluid" style="width:100%" src="~/images/images.jpg" alt="">
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+</body>
+</html>

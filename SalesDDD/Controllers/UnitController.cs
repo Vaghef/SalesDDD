@@ -11,14 +11,10 @@ using System.Threading.Tasks;
 
 namespace SalesDDD.Controllers
 {
-    public class UnitController : Controller
+    public class UnitController : BaseController
     {
         private readonly IGenericRepository<Unit> _repo;
         private readonly IMapper _mapper;
-        [TempData]
-        public string SuccessMessage { get; set; }
-        [TempData]
-        public string ErrorMessage { get; set; }
         public UnitController(IGenericRepository<Unit> repo, IMapper mapper)
         {
             _repo = repo;

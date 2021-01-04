@@ -21,4 +21,10 @@ namespace SalesDDD.Models
         public string Key { get; set; }
         public string Value { get; set; }
     }
+
+    public class Tag
+    {
+        public int Id { get; set; }
+        public string Classname { get; set; }
+    }
 }
