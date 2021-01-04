@@ -34,7 +34,8 @@ namespace SalesDDD.Controllers
         }
         public IActionResult Error()
         {
-            return View("Error", new ErrorViewModel().RequestId = "خطا در احراز هویت");
+            return View("Error", new ErrorViewModel()
+            { RequestId = "خطا در احراز هویت" });
         }
         [HttpPost(Name = "Card")]
         [Authorize(Roles = "Admin")]
